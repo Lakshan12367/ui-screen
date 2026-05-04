@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROMO · Device UI Variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0c;
+    --bg-soft: #161616;
+    --line: rgba(255,255,255,0.08);
+    --line-strong: rgba(255,255,255,0.18);
+    --text: #f4f4f4;
+    --text-dim: rgba(244,244,244,0.5);
+    --text-faint: rgba(244,244,244,0.3);
+    --lcd-bg: #d4b418;
+    --lcd-bg-deep: #b8970d;
+    --lcd-dot: #1a1408;
+    --accent: #ffd84d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 60px 40px 100px;
+    min-height: 100vh;
+  }
+
+  .page-header {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .page-header h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .page-header h2 {
+    font-size: 56px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-top: 8px;
+  }
+
+  .page-header h2 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .header-meta {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+  }
+
+  .header-meta strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Variation header */
+  .variation {
+    max-width: 1400px;
+    margin: 0 auto 120px;
+  }
+
+  .variation-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 50px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .variation-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    padding: 8px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+  }
+
+  .variation-title {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+
+  .variation-title h3 {
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .variation-title .tagline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .variation-keywords {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .keyword {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 6px 12px;
+    background: var(--bg-soft);
+    border-radius: 4px;
+  }
+
+  /* Screen grid */
+  .screen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+  }
+
+  .screen-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .screen-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .screen-label strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* LCD device frame */
+  .lcd-frame {
+    background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    padding: 18px;
+    position: relative;
+    box-shadow: 
+      0 1px 0 rgba(255,255,255,0.04) inset,
+      0 20px 40px -20px rgba(0,0,0,0.8);
+  }
+
+  .lcd-frame::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 216, 77, 0.6);
+    box-shadow: 0 0 6px rgba(255, 216, 77, 0.8);
+  }
+
+  .lcd-screen {
+    background: var(--lcd-bg);
+    background-image: 
+      radial-gradient(ellipse at center, var(--lcd-bg) 0%, var(--lcd-bg-deep) 100%);
+    border-radius: 6px;
+    aspect-ratio: 128 / 64;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 
+      inset 0 0 20px rgba(0,0,0,0.15),
+      inset 0 1px 2px rgba(0,0,0,0.2);
+  }
+
+  .lcd-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,0,0,0.04) 1px, rgba(0,0,0,0.04) 2px),
+      repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0,0,0,0.04) 1px, rgba(0,0,0,0.04) 2px);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .lcd-screen svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .screen-caption {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* Animations - shared */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes blink {
+    0%, 60% { opacity: 1; }
+    61%, 100% { opacity: 0; }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+
+  @keyframes slide {
+    0% { transform: translateX(-128px); }
+    100% { transform: translateX(128px); }
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  /* Variation A: Pixel Bloom - soft, organic */
+  .va-cursor { animation: blink 1.2s steps(2) infinite; }
+  .va-breathe { animation: breathe 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+  .va-pulse-1 { animation: pulse 1.5s ease-in-out infinite; }
+  .va-pulse-2 { animation: pulse 1.5s ease-in-out infinite; animation-delay: 0.2s; }
+  .va-pulse-3 { animation: pulse 1.5s ease-in-out infinite; animation-delay: 0.4s; }
+  .va-pulse-4 { animation: pulse 1.5s ease-in-out infinite; animation-delay: 0.6s; }
+  .va-spin { animation: spin 4s linear infinite; transform-origin: center; transform-box: fill-box; }
+
+  /* Variation B: Grid Field - structured */
+  .vb-fade { animation: fadeInOut 2s ease-in-out infinite; }
+  .vb-fade-1 { animation: fadeInOut 2s ease-in-out infinite; animation-delay: 0.1s; }
+  .vb-fade-2 { animation: fadeInOut 2s ease-in-out infinite; animation-delay: 0.2s; }
+  .vb-fade-3 { animation: fadeInOut 2s ease-in-out infinite; animation-delay: 0.3s; }
+  .vb-fade-4 { animation: fadeInOut 2s ease-in-out infinite; animation-delay: 0.4s; }
+  .vb-cursor { animation: blink 1s steps(2) infinite; }
+
+  /* Variation C: Halftone Wave - expressive */
+  .vc-wave-1 { animation: wave 1.6s ease-in-out infinite; }
+  .vc-wave-2 { animation: wave 1.6s ease-in-out infinite; animation-delay: 0.1s; }
+  .vc-wave-3 { animation: wave 1.6s ease-in-out infinite; animation-delay: 0.2s; }
+  .vc-wave-4 { animation: wave 1.6s ease-in-out infinite; animation-delay: 0.3s; }
+  .vc-wave-5 { animation: wave 1.6s ease-in-out infinite; animation-delay: 0.4s; }
+  .vc-wave-6 { animation: wave 1.6s ease-in-out infinite; animation-delay: 0.5s; }
+  .vc-cursor { animation: blink 0.8s steps(2) infinite; }
+
+  /* Footer */
+  .footer-note {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .footer-note strong {
+    display: block;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 30px 16px 60px; }
+    .page-header { grid-template-columns: 1fr; gap: 16px; }
+    .page-header h2 { font-size: 36px; }
+    .header-meta { text-align: left; }
+    .variation-header { grid-template-columns: 1fr; gap: 16px; }
+    .variation-title { flex-direction: column; gap: 4px; align-items: flex-start; }
+    .variation-title h3 { font-size: 26px; }
+    .footer-note { grid-template-columns: 1fr; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div>
+    <h1>ROMO · Device UI System</h1>
+    <h2>Three visual <em>directions</em><br>for a 128 × 64 LCD</h2>
+  </div>
+  <div class="header-meta">
+    <strong>Display</strong> · 128×64 dot matrix<br>
+    <strong>Backlight</strong> · Yellow phosphor<br>
+    <strong>Input</strong> · Rotary encoder<br>
+    <strong>Screens</strong> · 30 (10 per variation)
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- VARIATION A: PIXEL BLOOM                                     -->
+<!-- ============================================================ -->
+<section class="variation">
+  <div class="variation-header">
+    <div class="variation-number">01 / A</div>
+    <div class="variation-title">
+      <h3>Pixel Bloom</h3>
+      <span class="tagline">Soft · Organic · Friendly</span>
+    </div>
+    <div class="variation-keywords">
+      <span class="keyword">rounded dots</span>
+      <span class="keyword">breathing</span>
+      <span class="keyword">warm</span>
+    </div>
+  </div>
+
+  <div class="screen-grid">
+
+    <!-- A.01 BOOT -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.01</span><strong>BOOT</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Bloom: concentric rings of dots -->
+          <g fill="#1a1408">
+            <!-- Center -->
+            <circle cx="64" cy="28" r="1.6" class="va-breathe"/>
+            <!-- Ring 1 -->
+            <circle cx="64" cy="22" r="1.2" class="va-pulse-1"/>
+            <circle cx="70" cy="28" r="1.2" class="va-pulse-1"/>
+            <circle cx="64" cy="34" r="1.2" class="va-pulse-1"/>
+            <circle cx="58" cy="28" r="1.2" class="va-pulse-1"/>
+            <!-- Ring 2 (diagonal) -->
+            <circle cx="68.5" cy="23.5" r="1" class="va-pulse-2"/>
+            <circle cx="68.5" cy="32.5" r="1" class="va-pulse-2"/>
+            <circle cx="59.5" cy="32.5" r="1" class="va-pulse-2"/>
+            <circle cx="59.5" cy="23.5" r="1" class="va-pulse-2"/>
+            <!-- Ring 3 outer -->
+            <circle cx="64" cy="16" r="0.8" class="va-pulse-3"/>
+            <circle cx="76" cy="28" r="0.8" class="va-pulse-3"/>
+            <circle cx="64" cy="40" r="0.8" class="va-pulse-3"/>
+            <circle cx="52" cy="28" r="0.8" class="va-pulse-3"/>
+            <circle cx="73" cy="19" r="0.8" class="va-pulse-4"/>
+            <circle cx="73" cy="37" r="0.8" class="va-pulse-4"/>
+            <circle cx="55" cy="37" r="0.8" class="va-pulse-4"/>
+            <circle cx="55" cy="19" r="0.8" class="va-pulse-4"/>
+          </g>
+          <!-- Wordmark -->
+          <text x="64" y="55" font-family="JetBrains Mono, monospace" font-size="7" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="2">ROMO</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Bloom radiates from center. Wordmark fades in last.</div>
+    </div>
+
+    <!-- A.02 HOME -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.02</span><strong>HOME</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Top bar -->
+          <text x="6" y="10" font-family="JetBrains Mono, monospace" font-size="7" font-weight="700" fill="#1a1408">romo</text>
+          <circle cx="22" cy="7.5" r="0.8" fill="#1a1408"/>
+          <text x="122" y="10" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" text-anchor="end">12</text>
+          <!-- Cluster of dot bubbles representing items -->
+          <g fill="#1a1408">
+            <circle cx="32" cy="32" r="5"/>
+            <circle cx="48" cy="28" r="6.5"/>
+            <circle cx="66" cy="34" r="4"/>
+            <circle cx="80" cy="26" r="5.5"/>
+            <circle cx="96" cy="32" r="4.5"/>
+          </g>
+          <!-- Inner dots (lighter, hollow effect via lcd-bg) -->
+          <g fill="#d4b418">
+            <circle cx="32" cy="32" r="2"/>
+            <circle cx="48" cy="28" r="3"/>
+            <circle cx="66" cy="34" r="1.5"/>
+            <circle cx="80" cy="26" r="2.5"/>
+            <circle cx="96" cy="32" r="2"/>
+          </g>
+          <!-- Bottom label -->
+          <text x="64" y="56" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" text-anchor="middle" letter-spacing="1.5">12 ITEMS WAITING</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Each bubble = saved item. Size reflects category weight.</div>
+    </div>
+
+    <!-- A.03 SYNC -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.03</span><strong>SYNCING</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Orbiting dots -->
+          <g class="va-spin" transform-origin="64 26">
+            <circle cx="64" cy="14" r="2" fill="#1a1408"/>
+            <circle cx="76" cy="26" r="1.5" fill="#1a1408" opacity="0.7"/>
+            <circle cx="64" cy="38" r="1" fill="#1a1408" opacity="0.4"/>
+            <circle cx="52" cy="26" r="0.7" fill="#1a1408" opacity="0.2"/>
+          </g>
+          <!-- Center anchor -->
+          <circle cx="64" cy="26" r="1.2" fill="#1a1408"/>
+          <text x="64" y="50" font-family="JetBrains Mono, monospace" font-size="7" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="1">syncing</text>
+          <text x="64" y="58" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="1.5" opacity="0.7">5 OF 12</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Orbiting trail rotates around still center.</div>
+    </div>
+
+    <!-- A.04 CATEGORIES -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.04</span><strong>CATEGORIES</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="6" y="10" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" letter-spacing="1.5">CATEGORIES</text>
+          <text x="122" y="10" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" text-anchor="end">1/4</text>
+          <line x1="6" y1="13" x2="122" y2="13" stroke="#1a1408" stroke-width="0.4"/>
+          
+          <!-- VIDEO selected: pill background -->
+          <rect x="6" y="17" width="116" height="11" rx="5.5" fill="#1a1408"/>
+          <!-- Play dot -->
+          <circle cx="13" cy="22.5" r="1.8" fill="#d4b418"/>
+          <text x="20" y="25" font-family="JetBrains Mono, monospace" font-size="6.5" font-weight="700" fill="#d4b418" letter-spacing="1">VIDEO</text>
+          <text x="116" y="25" font-family="JetBrains Mono, monospace" font-size="6" fill="#d4b418" text-anchor="end">04</text>
+          
+          <!-- IMAGE -->
+          <g fill="#1a1408"><circle cx="11" cy="35.5" r="1"/><circle cx="14" cy="35.5" r="1"/><circle cx="11" cy="38.5" r="1"/><circle cx="14" cy="38.5" r="1"/></g>
+          <text x="20" y="38" font-family="JetBrains Mono, monospace" font-size="6.5" fill="#1a1408" letter-spacing="1">IMAGE</text>
+          <text x="116" y="38" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" text-anchor="end">06</text>
+          
+          <!-- ARTICLE -->
+          <g fill="#1a1408"><rect x="10" y="48" width="6" height="0.8"/><rect x="10" y="50" width="6" height="0.8"/><rect x="10" y="52" width="4" height="0.8"/></g>
+          <text x="20" y="51" font-family="JetBrains Mono, monospace" font-size="6.5" fill="#1a1408" letter-spacing="1">ARTICLE</text>
+          <text x="116" y="51" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" text-anchor="end">02</text>
+          
+          <!-- Page indicator dots -->
+          <g fill="#1a1408">
+            <circle cx="58" cy="60" r="1.2"/>
+            <circle cx="62" cy="60" r="0.6" opacity="0.4"/>
+            <circle cx="66" cy="60" r="0.6" opacity="0.4"/>
+            <circle cx="70" cy="60" r="0.6" opacity="0.4"/>
+          </g>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Pill highlight on selection. Mini icon for each type.</div>
+    </div>
+
+    <!-- A.05 LIST -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.05</span><strong>LIST</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="6" y="10" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" letter-spacing="1.5">VIDEOS</text>
+          <text x="122" y="10" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" text-anchor="end">1/4</text>
+          <line x1="6" y1="13" x2="122" y2="13" stroke="#1a1408" stroke-width="0.4"/>
+          
+          <!-- Item 1 selected -->
+          <rect x="6" y="17" width="116" height="13" rx="6.5" fill="#1a1408"/>
+          <!-- Thumbnail dot grid -->
+          <g fill="#d4b418">
+            <circle cx="11" cy="21" r="0.6"/><circle cx="13.5" cy="21" r="0.6"/><circle cx="16" cy="21" r="0.6"/>
+            <circle cx="11" cy="23.5" r="0.6"/><circle cx="13.5" cy="23.5" r="1"/><circle cx="16" cy="23.5" r="0.6"/>
+            <circle cx="11" cy="26" r="0.6"/><circle cx="13.5" cy="26" r="0.6"/><circle cx="16" cy="26" r="0.6"/>
+          </g>
+          <text x="22" y="22.5" font-family="Space Grotesk, sans-serif" font-size="5.5" font-weight="700" fill="#d4b418">Hidden cost of saving</text>
+          <text x="22" y="28" font-family="JetBrains Mono, monospace" font-size="5" fill="#d4b418" opacity="0.7">14:32 · MINIMAL FUTURES</text>
+          
+          <!-- Item 2 -->
+          <g fill="#1a1408" opacity="0.3">
+            <circle cx="11" cy="36" r="0.6"/><circle cx="13.5" cy="36" r="0.6"/><circle cx="16" cy="36" r="0.6"/>
+            <circle cx="11" cy="38.5" r="0.6"/><circle cx="13.5" cy="38.5" r="0.6"/><circle cx="16" cy="38.5" r="0.6"/>
+          </g>
+          <text x="22" y="37.5" font-family="Space Grotesk, sans-serif" font-size="5.5" fill="#1a1408">Why bookmarks become</text>
+          <text x="22" y="42.5" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" opacity="0.6">8:11 · SLOW DESIGN</text>
+          
+          <!-- Item 3 -->
+          <g fill="#1a1408" opacity="0.3">
+            <circle cx="11" cy="50" r="0.6"/><circle cx="13.5" cy="50" r="0.6"/><circle cx="16" cy="50" r="0.6"/>
+            <circle cx="11" cy="52.5" r="0.6"/><circle cx="13.5" cy="52.5" r="0.6"/><circle cx="16" cy="52.5" r="0.6"/>
+          </g>
+          <text x="22" y="51.5" font-family="Space Grotesk, sans-serif" font-size="5.5" fill="#1a1408">Digital hoarding</text>
+          <text x="22" y="56.5" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" opacity="0.6">12:05 · ESSAY</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Each row has a 3×3 dot thumbnail. Pill highlights focus.</div>
+    </div>
+
+    <!-- A.06 THUMBNAIL -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.06</span><strong>PREVIEW</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Thumbnail panel -->
+          <rect x="6" y="6" width="44" height="44" rx="3" fill="#1a1408"/>
+          <!-- Bloom dithered thumbnail -->
+          <g fill="#d4b418">
+            <!-- top-heavy bloom -->
+            <circle cx="14" cy="14" r="1"/><circle cx="20" cy="12" r="1.4"/><circle cx="28" cy="14" r="1"/><circle cx="36" cy="12" r="1.2"/><circle cx="42" cy="14" r="0.8"/>
+            <circle cx="12" cy="20" r="1.2"/><circle cx="20" cy="22" r="2"/><circle cx="30" cy="20" r="1.6"/><circle cx="38" cy="22" r="1.2"/>
+            <circle cx="16" cy="28" r="1"/><circle cx="24" cy="30" r="1.4"/><circle cx="34" cy="28" r="1"/><circle cx="42" cy="30" r="0.8"/>
+            <circle cx="14" cy="38" r="0.8"/><circle cx="22" cy="40" r="1"/><circle cx="32" cy="38" r="0.8"/><circle cx="40" cy="40" r="0.6"/>
+            <circle cx="18" cy="46" r="0.6"/><circle cx="28" cy="46" r="0.8"/><circle cx="38" cy="46" r="0.6"/>
+          </g>
+          <!-- Right info -->
+          <text x="56" y="14" font-family="Space Grotesk, sans-serif" font-size="6.5" font-weight="700" fill="#1a1408">Hidden cost of</text>
+          <text x="56" y="22" font-family="Space Grotesk, sans-serif" font-size="6.5" font-weight="700" fill="#1a1408">saving everything</text>
+          <line x1="56" y1="27" x2="120" y2="27" stroke="#1a1408" stroke-width="0.3"/>
+          <text x="56" y="33" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1">DURATION 14:32</text>
+          <text x="56" y="40" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1">MINIMAL FUTURES</text>
+          <text x="56" y="47" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1" opacity="0.6">SAVED 3 DAYS AGO</text>
+          
+          <!-- Action prompt -->
+          <text x="64" y="59" font-family="JetBrains Mono, monospace" font-size="5.5" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="2">› CLICK TO PLAY</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Dithered bloom thumbnail + structured metadata.</div>
+    </div>
+
+    <!-- A.07 NOW PLAYING -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.07</span><strong>NOW PLAYING</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="6" y="10" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#1a1408" letter-spacing="1.5" opacity="0.7">NOW PLAYING</text>
+          <text x="122" y="10" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#1a1408" text-anchor="end">▶</text>
+          
+          <text x="64" y="22" font-family="Space Grotesk, sans-serif" font-size="7" font-weight="700" fill="#1a1408" text-anchor="middle">Hidden cost of saving</text>
+          
+          <!-- Audio bloom: dot bars that pulse -->
+          <g fill="#1a1408">
+            <circle cx="44" cy="36" r="1.5" class="va-pulse-1"/>
+            <circle cx="50" cy="36" r="2" class="va-pulse-2"/>
+            <circle cx="56" cy="36" r="2.5" class="va-pulse-3"/>
+            <circle cx="62" cy="36" r="3" class="va-breathe"/>
+            <circle cx="68" cy="36" r="3" class="va-breathe"/>
+            <circle cx="74" cy="36" r="2.5" class="va-pulse-3"/>
+            <circle cx="80" cy="36" r="2" class="va-pulse-2"/>
+            <circle cx="86" cy="36" r="1.5" class="va-pulse-1"/>
+          </g>
+          
+          <!-- Time -->
+          <text x="6" y="58" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#1a1408">3:24</text>
+          <text x="122" y="58" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" text-anchor="end" opacity="0.6">14:32</text>
+          <!-- Progress dots -->
+          <g fill="#1a1408">
+            <circle cx="22" cy="56" r="0.7"/><circle cx="28" cy="56" r="0.7"/><circle cx="34" cy="56" r="0.7"/><circle cx="40" cy="56" r="0.7"/>
+            <circle cx="46" cy="56" r="0.4" opacity="0.4"/><circle cx="52" cy="56" r="0.4" opacity="0.4"/><circle cx="58" cy="56" r="0.4" opacity="0.4"/>
+            <circle cx="64" cy="56" r="0.4" opacity="0.4"/><circle cx="70" cy="56" r="0.4" opacity="0.4"/><circle cx="76" cy="56" r="0.4" opacity="0.4"/>
+            <circle cx="82" cy="56" r="0.4" opacity="0.4"/><circle cx="88" cy="56" r="0.4" opacity="0.4"/>
+            <circle cx="94" cy="56" r="0.4" opacity="0.4"/><circle cx="100" cy="56" r="0.4" opacity="0.4"/>
+            <circle cx="106" cy="56" r="0.4" opacity="0.4"/><circle cx="112" cy="56" r="0.4" opacity="0.4"/>
+          </g>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Symmetrical bloom waveform + dotted progress.</div>
+    </div>
+
+    <!-- A.08 ACTION -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.08</span><strong>ACTION</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="64" y="10" font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" text-anchor="middle" letter-spacing="2">WHAT NEXT?</text>
+          <line x1="40" y1="13" x2="88" y2="13" stroke="#1a1408" stroke-width="0.4"/>
+          
+          <!-- Three round options -->
+          <!-- KEEP -->
+          <circle cx="28" cy="32" r="11" fill="none" stroke="#1a1408" stroke-width="0.6"/>
+          <g fill="#1a1408"><circle cx="25" cy="30" r="0.8"/><circle cx="28" cy="30" r="0.8"/><circle cx="31" cy="30" r="0.8"/><circle cx="25" cy="33" r="0.8"/><circle cx="28" cy="33" r="0.8"/><circle cx="31" cy="33" r="0.8"/></g>
+          <text x="28" y="51" font-family="JetBrains Mono, monospace" font-size="5.5" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="1">KEEP</text>
+          
+          <!-- RELEASE selected -->
+          <circle cx="64" cy="32" r="13" fill="#1a1408"/>
+          <g fill="#d4b418">
+            <circle cx="60" cy="32" r="1" class="va-pulse-1"/>
+            <circle cx="64" cy="32" r="1.4" class="va-breathe"/>
+            <circle cx="68" cy="32" r="1" class="va-pulse-3"/>
+          </g>
+          <text x="64" y="51" font-family="JetBrains Mono, monospace" font-size="5.5" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="1">RELEASE</text>
+          
+          <!-- ARCHIVE -->
+          <circle cx="100" cy="32" r="11" fill="none" stroke="#1a1408" stroke-width="0.6"/>
+          <g fill="#1a1408"><rect x="95" y="30" width="10" height="4" rx="0.5"/><rect x="97" y="32" width="6" height="0.6" fill="#d4b418"/></g>
+          <text x="100" y="51" font-family="JetBrains Mono, monospace" font-size="5.5" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="1">ARCHIVE</text>
+          
+          <text x="64" y="60" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="1.5" opacity="0.6">ROTATE TO CHOOSE</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Three round buttons. Selected one inverts colors.</div>
+    </div>
+
+    <!-- A.09 COMPLETE -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.09</span><strong>RELEASED</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Expanding bloom rings -->
+          <circle cx="64" cy="26" r="6" fill="none" stroke="#1a1408" stroke-width="0.4" class="va-pulse-1"/>
+          <circle cx="64" cy="26" r="11" fill="none" stroke="#1a1408" stroke-width="0.4" class="va-pulse-2"/>
+          <circle cx="64" cy="26" r="16" fill="none" stroke="#1a1408" stroke-width="0.4" class="va-pulse-3"/>
+          
+          <!-- Departing dots -->
+          <g fill="#1a1408">
+            <circle cx="64" cy="26" r="2" class="va-breathe"/>
+            <circle cx="50" cy="14" r="0.8" class="va-pulse-2" opacity="0.6"/>
+            <circle cx="78" cy="14" r="0.8" class="va-pulse-3" opacity="0.6"/>
+            <circle cx="42" cy="26" r="0.6" class="va-pulse-4" opacity="0.5"/>
+            <circle cx="86" cy="26" r="0.6" class="va-pulse-1" opacity="0.5"/>
+          </g>
+          
+          <text x="64" y="50" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" fill="#1a1408" text-anchor="middle">released</text>
+          <text x="64" y="58" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="2" opacity="0.7">11 ITEMS LEFT</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Concentric rings expand outward. Item leaves the system.</div>
+    </div>
+
+    <!-- A.10 EMPTY -->
+    <div class="screen-card">
+      <div class="screen-label"><span>A.10</span><strong>EMPTY</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Single breathing dot -->
+          <circle cx="64" cy="22" r="3" fill="#1a1408" class="va-breathe"/>
+          <circle cx="64" cy="22" r="7" fill="none" stroke="#1a1408" stroke-width="0.3" opacity="0.4"/>
+          <circle cx="64" cy="22" r="11" fill="none" stroke="#1a1408" stroke-width="0.3" opacity="0.2"/>
+          
+          <text x="64" y="44" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#1a1408" text-anchor="middle">all clear</text>
+          <text x="64" y="54" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="2" opacity="0.7">ENJOY THE QUIET</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Empty as peaceful, not failure. One steady dot, breathing.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- VARIATION B: GRID FIELD                                      -->
+<!-- ============================================================ -->
+<section class="variation">
+  <div class="variation-header">
+    <div class="variation-number">02 / B</div>
+    <div class="variation-title">
+      <h3>Grid Field</h3>
+      <span class="tagline">Modern · Architectural · Precise</span>
+    </div>
+    <div class="variation-keywords">
+      <span class="keyword">square dots</span>
+      <span class="keyword">density</span>
+      <span class="keyword">structured</span>
+    </div>
+  </div>
+
+  <div class="screen-grid">
+
+    <!-- B.01 BOOT -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.01</span><strong>BOOT</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- ROMO built from grid squares -->
+          <g fill="#1a1408">
+            <!-- R -->
+            <rect x="32" y="20" width="2" height="2"/><rect x="35" y="20" width="2" height="2"/><rect x="38" y="20" width="2" height="2"/>
+            <rect x="32" y="23" width="2" height="2"/><rect x="38" y="23" width="2" height="2"/>
+            <rect x="32" y="26" width="2" height="2"/><rect x="35" y="26" width="2" height="2"/>
+            <rect x="32" y="29" width="2" height="2"/><rect x="38" y="29" width="2" height="2"/>
+            <rect x="32" y="32" width="2" height="2"/><rect x="38" y="32" width="2" height="2"/>
+            <!-- O -->
+            <rect x="44" y="20" width="2" height="2"/><rect x="47" y="20" width="2" height="2"/><rect x="50" y="20" width="2" height="2"/>
+            <rect x="44" y="23" width="2" height="2"/><rect x="50" y="23" width="2" height="2"/>
+            <rect x="44" y="26" width="2" height="2"/><rect x="50" y="26" width="2" height="2"/>
+            <rect x="44" y="29" width="2" height="2"/><rect x="50" y="29" width="2" height="2"/>
+            <rect x="44" y="32" width="2" height="2"/><rect x="47" y="32" width="2" height="2"/><rect x="50" y="32" width="2" height="2"/>
+            <!-- M -->
+            <rect x="56" y="20" width="2" height="2"/><rect x="62" y="20" width="2" height="2"/>
+            <rect x="56" y="23" width="2" height="2"/><rect x="59" y="23" width="2" height="2"/><rect x="62" y="23" width="2" height="2"/>
+            <rect x="56" y="26" width="2" height="2"/><rect x="59" y="26" width="2" height="2"/><rect x="62" y="26" width="2" height="2"/>
+            <rect x="56" y="29" width="2" height="2"/><rect x="62" y="29" width="2" height="2"/>
+            <rect x="56" y="32" width="2" height="2"/><rect x="62" y="32" width="2" height="2"/>
+            <!-- O -->
+            <rect x="68" y="20" width="2" height="2"/><rect x="71" y="20" width="2" height="2"/><rect x="74" y="20" width="2" height="2"/>
+            <rect x="68" y="23" width="2" height="2"/><rect x="74" y="23" width="2" height="2"/>
+            <rect x="68" y="26" width="2" height="2"/><rect x="74" y="26" width="2" height="2"/>
+            <rect x="68" y="29" width="2" height="2"/><rect x="74" y="29" width="2" height="2"/>
+            <rect x="68" y="32" width="2" height="2"/><rect x="71" y="32" width="2" height="2"/><rect x="74" y="32" width="2" height="2"/>
+          </g>
+          
+          <!-- Loading bar dots -->
+          <g fill="#1a1408">
+            <rect x="44" y="46" width="3" height="3" class="vb-fade"/>
+            <rect x="49" y="46" width="3" height="3" class="vb-fade-1"/>
+            <rect x="54" y="46" width="3" height="3" class="vb-fade-2"/>
+            <rect x="59" y="46" width="3" height="3" class="vb-fade-3"/>
+            <rect x="64" y="46" width="3" height="3" class="vb-fade-4"/>
+            <rect x="69" y="46" width="3" height="3" class="vb-fade-3"/>
+            <rect x="74" y="46" width="3" height="3" class="vb-fade-2"/>
+            <rect x="79" y="46" width="3" height="3" class="vb-fade-1"/>
+          </g>
+          
+          <text x="64" y="59" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="2.5">RELIEF OF MISSING OUT</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Pixel-grid wordmark. Loading squares fade in sequence.</div>
+    </div>
+
+    <!-- B.02 HOME -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.02</span><strong>HOME</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Header strip -->
+          <rect x="0" y="0" width="128" height="11" fill="#1a1408"/>
+          <text x="6" y="8" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#d4b418" letter-spacing="2">ROMO</text>
+          <text x="122" y="8" font-family="JetBrains Mono, monospace" font-size="6" fill="#d4b418" text-anchor="end">12 / 50</text>
+          
+          <!-- Storage grid: 50 squares, 12 filled -->
+          <g fill="#1a1408">
+            <!-- Filled -->
+            <rect x="6" y="17" width="3" height="3"/><rect x="11" y="17" width="3" height="3"/><rect x="16" y="17" width="3" height="3"/><rect x="21" y="17" width="3" height="3"/><rect x="26" y="17" width="3" height="3"/><rect x="31" y="17" width="3" height="3"/><rect x="36" y="17" width="3" height="3"/><rect x="41" y="17" width="3" height="3"/><rect x="46" y="17" width="3" height="3"/><rect x="51" y="17" width="3" height="3"/>
+            <rect x="6" y="22" width="3" height="3"/><rect x="11" y="22" width="3" height="3"/>
+          </g>
+          <!-- Empty -->
+          <g fill="#1a1408" opacity="0.18">
+            <rect x="16" y="22" width="3" height="3"/><rect x="21" y="22" width="3" height="3"/><rect x="26" y="22" width="3" height="3"/><rect x="31" y="22" width="3" height="3"/><rect x="36" y="22" width="3" height="3"/><rect x="41" y="22" width="3" height="3"/><rect x="46" y="22" width="3" height="3"/><rect x="51" y="22" width="3" height="3"/>
+            <rect x="6" y="27" width="3" height="3"/><rect x="11" y="27" width="3" height="3"/><rect x="16" y="27" width="3" height="3"/><rect x="21" y="27" width="3" height="3"/><rect x="26" y="27" width="3" height="3"/><rect x="31" y="27" width="3" height="3"/><rect x="36" y="27" width="3" height="3"/><rect x="41" y="27" width="3" height="3"/><rect x="46" y="27" width="3" height="3"/><rect x="51" y="27" width="3" height="3"/>
+            <rect x="6" y="32" width="3" height="3"/><rect x="11" y="32" width="3" height="3"/><rect x="16" y="32" width="3" height="3"/><rect x="21" y="32" width="3" height="3"/><rect x="26" y="32" width="3" height="3"/><rect x="31" y="32" width="3" height="3"/><rect x="36" y="32" width="3" height="3"/><rect x="41" y="32" width="3" height="3"/><rect x="46" y="32" width="3" height="3"/><rect x="51" y="32" width="3" height="3"/>
+            <rect x="6" y="37" width="3" height="3"/><rect x="11" y="37" width="3" height="3"/><rect x="16" y="37" width="3" height="3"/><rect x="21" y="37" width="3" height="3"/><rect x="26" y="37" width="3" height="3"/><rect x="31" y="37" width="3" height="3"/><rect x="36" y="37" width="3" height="3"/><rect x="41" y="37" width="3" height="3"/><rect x="46" y="37" width="3" height="3"/><rect x="51" y="37" width="3" height="3"/>
+          </g>
+          
+          <!-- Side label -->
+          <text x="60" y="22" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.2">QUEUE</text>
+          <text x="60" y="30" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="#1a1408">12</text>
+          <text x="60" y="38" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1" opacity="0.7">ITEMS</text>
+          
+          <!-- Footer -->
+          <line x1="0" y1="48" x2="128" y2="48" stroke="#1a1408" stroke-width="0.4" opacity="0.4"/>
+          <text x="6" y="56" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.5">ROTATE</text>
+          <g fill="#1a1408"><rect x="36" y="52" width="2" height="2"/><rect x="39" y="52" width="2" height="2"/><rect x="42" y="52" width="2" height="2"/></g>
+          <text x="122" y="56" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="end" letter-spacing="1.5">CLICK ENTER</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Storage shown as filled grid. 12/50 capacity at a glance.</div>
+    </div>
+
+    <!-- B.03 SYNC -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.03</span><strong>SYNCING</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="64" y="11" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="3">SYNCING</text>
+          
+          <!-- Cascading grid that fills column by column -->
+          <g fill="#1a1408">
+            <!-- Column 1 (full) -->
+            <rect x="14" y="20" width="3" height="3"/><rect x="14" y="25" width="3" height="3"/><rect x="14" y="30" width="3" height="3"/><rect x="14" y="35" width="3" height="3"/><rect x="14" y="40" width="3" height="3"/>
+            <!-- Column 2 -->
+            <rect x="22" y="20" width="3" height="3"/><rect x="22" y="25" width="3" height="3"/><rect x="22" y="30" width="3" height="3"/><rect x="22" y="35" width="3" height="3"/><rect x="22" y="40" width="3" height="3"/>
+            <!-- Column 3 -->
+            <rect x="30" y="20" width="3" height="3"/><rect x="30" y="25" width="3" height="3"/><rect x="30" y="30" width="3" height="3"/><rect x="30" y="35" width="3" height="3"/>
+            <!-- Column 4 partial - animating -->
+            <rect x="38" y="35" width="3" height="3" class="vb-fade"/>
+            <rect x="38" y="40" width="3" height="3" class="vb-fade-2"/>
+          </g>
+          <!-- Empty placeholders -->
+          <g fill="#1a1408" opacity="0.18">
+            <rect x="38" y="20" width="3" height="3"/><rect x="38" y="25" width="3" height="3"/><rect x="38" y="30" width="3" height="3"/>
+            <rect x="46" y="20" width="3" height="3"/><rect x="46" y="25" width="3" height="3"/><rect x="46" y="30" width="3" height="3"/><rect x="46" y="35" width="3" height="3"/><rect x="46" y="40" width="3" height="3"/>
+            <rect x="54" y="20" width="3" height="3"/><rect x="54" y="25" width="3" height="3"/><rect x="54" y="30" width="3" height="3"/><rect x="54" y="35" width="3" height="3"/><rect x="54" y="40" width="3" height="3"/>
+          </g>
+          
+          <!-- Right side counter -->
+          <text x="74" y="24" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.5">PROGRESS</text>
+          <text x="74" y="36" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700" fill="#1a1408">14<tspan font-family="JetBrains Mono, monospace" font-size="6" fill="#1a1408" opacity="0.6">/24</tspan></text>
+          <text x="74" y="44" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1" opacity="0.7">RECEIVED</text>
+          
+          <text x="64" y="58" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="2" opacity="0.6">DO NOT DISCONNECT</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Grid fills column by column as items arrive.</div>
+    </div>
+
+    <!-- B.04 CATEGORIES -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.04</span><strong>CATEGORIES</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="6" y="9" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#1a1408" letter-spacing="2">CATEGORIES</text>
+          <text x="122" y="9" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="end" opacity="0.6">02/04</text>
+          <line x1="0" y1="13" x2="128" y2="13" stroke="#1a1408" stroke-width="0.4"/>
+          
+          <!-- Four columns of cards -->
+          <!-- Card 1: VIDEO -->
+          <rect x="4" y="17" width="28" height="40" fill="none" stroke="#1a1408" stroke-width="0.5"/>
+          <g fill="#1a1408">
+            <!-- play icon as filled triangle of squares -->
+            <rect x="13" y="22" width="2" height="2"/>
+            <rect x="13" y="24" width="2" height="2"/><rect x="15" y="24" width="2" height="2"/>
+            <rect x="13" y="26" width="2" height="2"/><rect x="15" y="26" width="2" height="2"/><rect x="17" y="26" width="2" height="2"/>
+            <rect x="13" y="28" width="2" height="2"/><rect x="15" y="28" width="2" height="2"/>
+            <rect x="13" y="30" width="2" height="2"/>
+          </g>
+          <text x="18" y="42" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="1">VIDEO</text>
+          <text x="18" y="52" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#1a1408" text-anchor="middle">04</text>
+          
+          <!-- Card 2: IMAGE - SELECTED -->
+          <rect x="35" y="17" width="28" height="40" fill="#1a1408"/>
+          <g fill="#d4b418">
+            <rect x="42" y="23" width="2" height="2"/><rect x="45" y="23" width="2" height="2"/><rect x="48" y="23" width="2" height="2"/><rect x="51" y="23" width="2" height="2"/><rect x="54" y="23" width="2" height="2"/>
+            <rect x="42" y="26" width="2" height="2"/><rect x="48" y="26" width="2" height="2" class="vb-fade"/><rect x="54" y="26" width="2" height="2"/>
+            <rect x="42" y="29" width="2" height="2"/><rect x="45" y="29" width="2" height="2" class="vb-fade-2"/><rect x="51" y="29" width="2" height="2"/><rect x="54" y="29" width="2" height="2"/>
+            <rect x="42" y="32" width="2" height="2"/><rect x="45" y="32" width="2" height="2"/><rect x="48" y="32" width="2" height="2"/><rect x="51" y="32" width="2" height="2"/><rect x="54" y="32" width="2" height="2"/>
+          </g>
+          <text x="49" y="42" font-family="JetBrains Mono, monospace" font-size="5" fill="#d4b418" text-anchor="middle" letter-spacing="1">IMAGE</text>
+          <text x="49" y="52" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#d4b418" text-anchor="middle">06</text>
+          
+          <!-- Card 3: ARTICLE -->
+          <rect x="66" y="17" width="28" height="40" fill="none" stroke="#1a1408" stroke-width="0.5"/>
+          <g fill="#1a1408">
+            <rect x="73" y="22" width="14" height="0.8"/>
+            <rect x="73" y="25" width="14" height="0.8"/>
+            <rect x="73" y="28" width="14" height="0.8"/>
+            <rect x="73" y="31" width="9" height="0.8"/>
+          </g>
+          <text x="80" y="42" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="1">ARTICLE</text>
+          <text x="80" y="52" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#1a1408" text-anchor="middle">02</text>
+          
+          <!-- Card 4: TEXT -->
+          <rect x="97" y="17" width="28" height="40" fill="none" stroke="#1a1408" stroke-width="0.5"/>
+          <g fill="#1a1408">
+            <rect x="103" y="22" width="2" height="2"/><rect x="106" y="22" width="2" height="2"/><rect x="109" y="22" width="2" height="2"/><rect x="112" y="22" width="2" height="2"/><rect x="115" y="22" width="2" height="2"/><rect x="118" y="22" width="2" height="2"/>
+            <rect x="109" y="25" width="2" height="2"/><rect x="109" y="28" width="2" height="2"/><rect x="109" y="31" width="2" height="2"/>
+          </g>
+          <text x="111" y="42" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="1">TEXT</text>
+          <text x="111" y="52" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#1a1408" text-anchor="middle">00</text>
+          
+          <text x="64" y="62" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" text-anchor="middle" letter-spacing="1.5" opacity="0.6">ROTATE TO BROWSE</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Four equal cards. Selected card inverts to dark.</div>
+    </div>
+
+    <!-- B.05 LIST -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.05</span><strong>LIST</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <rect x="0" y="0" width="128" height="11" fill="#1a1408"/>
+          <text x="6" y="8" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#d4b418" letter-spacing="2">IMAGE · 06</text>
+          <text x="122" y="8" font-family="JetBrains Mono, monospace" font-size="6" fill="#d4b418" text-anchor="end">02/06</text>
+          
+          <!-- Row 1 -->
+          <g fill="#1a1408">
+            <!-- thumbnail -->
+            <rect x="6" y="14" width="2" height="2"/><rect x="9" y="14" width="2" height="2"/><rect x="12" y="14" width="2" height="2"/>
+            <rect x="6" y="17" width="2" height="2"/><rect x="12" y="17" width="2" height="2"/>
+            <rect x="6" y="20" width="2" height="2"/><rect x="9" y="20" width="2" height="2"/><rect x="12" y="20" width="2" height="2"/>
+          </g>
+          <text x="20" y="18" font-family="Space Grotesk, sans-serif" font-size="5.5" fill="#1a1408" opacity="0.5">Sunset over Tokyo</text>
+          <text x="122" y="20" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" text-anchor="end" opacity="0.6">JPG</text>
+          
+          <!-- Row 2 SELECTED -->
+          <rect x="0" y="25" width="128" height="13" fill="#1a1408"/>
+          <g fill="#d4b418">
+            <rect x="6" y="28" width="2" height="2"/><rect x="9" y="28" width="2" height="2"/><rect x="12" y="28" width="2" height="2"/>
+            <rect x="6" y="31" width="2" height="2"/><rect x="9" y="31" width="2" height="2"/><rect x="12" y="31" width="2" height="2"/>
+            <rect x="6" y="34" width="2" height="2"/><rect x="12" y="34" width="2" height="2"/>
+          </g>
+          <text x="20" y="32" font-family="Space Grotesk, sans-serif" font-size="5.5" font-weight="700" fill="#d4b418">Architecture sketch</text>
+          <text x="20" y="36" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#d4b418" opacity="0.7">SAVED · 2 DAYS AGO</text>
+          <text x="122" y="32" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#d4b418" text-anchor="end">PNG</text>
+          
+          <!-- Row 3 -->
+          <g fill="#1a1408">
+            <rect x="6" y="42" width="2" height="2"/><rect x="9" y="42" width="2" height="2"/><rect x="12" y="42" width="2" height="2"/>
+            <rect x="9" y="45" width="2" height="2"/>
+            <rect x="6" y="48" width="2" height="2"/><rect x="9" y="48" width="2" height="2"/><rect x="12" y="48" width="2" height="2"/>
+          </g>
+          <text x="20" y="46" font-family="Space Grotesk, sans-serif" font-size="5.5" fill="#1a1408" opacity="0.5">Color palette study</text>
+          <text x="122" y="48" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" text-anchor="end" opacity="0.6">JPG</text>
+          
+          <!-- Scroll indicator -->
+          <g fill="#1a1408" opacity="0.4">
+            <rect x="124" y="14" width="1" height="6"/>
+            <rect x="124" y="22" width="1" height="6"/>
+          </g>
+          <rect x="124" y="32" width="1" height="6" fill="#1a1408"/>
+          
+          <!-- Footer -->
+          <rect x="0" y="55" width="128" height="9" fill="#1a1408" opacity="0.05"/>
+          <line x1="0" y1="55" x2="128" y2="55" stroke="#1a1408" stroke-width="0.3" opacity="0.3"/>
+          <text x="64" y="61" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="2">CLICK TO OPEN</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">3-line rows. Selected row fully inverts.</div>
+    </div>
+
+    <!-- B.06 THUMBNAIL -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.06</span><strong>PREVIEW</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Big thumbnail box -->
+          <rect x="6" y="6" width="50" height="50" fill="none" stroke="#1a1408" stroke-width="0.5"/>
+          
+          <!-- Halftone gradient via square density -->
+          <g fill="#1a1408">
+            <!-- Row 1 (sparse top) -->
+            <rect x="10" y="10" width="1.5" height="1.5"/>
+            <rect x="20" y="10" width="1.5" height="1.5"/>
+            <rect x="32" y="10" width="1.5" height="1.5"/>
+            <rect x="44" y="10" width="1.5" height="1.5"/>
+            <!-- Row 2 -->
+            <rect x="10" y="14" width="1.5" height="1.5"/><rect x="14" y="14" width="1.5" height="1.5"/>
+            <rect x="22" y="14" width="1.5" height="1.5"/><rect x="26" y="14" width="1.5" height="1.5"/>
+            <rect x="34" y="14" width="1.5" height="1.5"/><rect x="38" y="14" width="1.5" height="1.5"/>
+            <rect x="46" y="14" width="1.5" height="1.5"/><rect x="50" y="14" width="1.5" height="1.5"/>
+            <!-- Row 3 dense -->
+            <rect x="10" y="18" width="1.5" height="1.5"/><rect x="13" y="18" width="1.5" height="1.5"/><rect x="16" y="18" width="1.5" height="1.5"/><rect x="19" y="18" width="1.5" height="1.5"/><rect x="22" y="18" width="1.5" height="1.5"/><rect x="25" y="18" width="1.5" height="1.5"/><rect x="28" y="18" width="1.5" height="1.5"/><rect x="31" y="18" width="1.5" height="1.5"/><rect x="34" y="18" width="1.5" height="1.5"/><rect x="37" y="18" width="1.5" height="1.5"/><rect x="40" y="18" width="1.5" height="1.5"/><rect x="43" y="18" width="1.5" height="1.5"/><rect x="46" y="18" width="1.5" height="1.5"/><rect x="49" y="18" width="1.5" height="1.5"/>
+            <!-- Row 4 dense -->
+            <rect x="10" y="22" width="2" height="2"/><rect x="14" y="22" width="2" height="2"/><rect x="18" y="22" width="2" height="2"/><rect x="22" y="22" width="2" height="2"/><rect x="26" y="22" width="2" height="2"/><rect x="30" y="22" width="2" height="2"/><rect x="34" y="22" width="2" height="2"/><rect x="38" y="22" width="2" height="2"/><rect x="42" y="22" width="2" height="2"/><rect x="46" y="22" width="2" height="2"/><rect x="50" y="22" width="2" height="2"/>
+            <!-- Row 5 -->
+            <rect x="12" y="27" width="2" height="2"/><rect x="16" y="27" width="2" height="2"/><rect x="22" y="27" width="2" height="2"/><rect x="28" y="27" width="2" height="2"/><rect x="32" y="27" width="2" height="2"/><rect x="38" y="27" width="2" height="2"/><rect x="42" y="27" width="2" height="2"/><rect x="48" y="27" width="2" height="2"/>
+            <!-- Row 6 sparse (subject) -->
+            <rect x="20" y="32" width="2" height="2"/><rect x="24" y="32" width="2" height="2"/><rect x="28" y="32" width="2" height="2"/><rect x="32" y="32" width="2" height="2"/><rect x="36" y="32" width="2" height="2"/><rect x="40" y="32" width="2" height="2"/>
+            <!-- Row 7 -->
+            <rect x="14" y="37" width="2" height="2"/><rect x="22" y="37" width="2" height="2"/><rect x="32" y="37" width="2" height="2"/><rect x="42" y="37" width="2" height="2"/>
+            <!-- Row 8 -->
+            <rect x="10" y="42" width="2" height="2"/><rect x="20" y="42" width="2" height="2"/><rect x="34" y="42" width="2" height="2"/><rect x="48" y="42" width="2" height="2"/>
+            <!-- Row 9 sparse -->
+            <rect x="18" y="48" width="1.5" height="1.5"/><rect x="32" y="48" width="1.5" height="1.5"/><rect x="44" y="48" width="1.5" height="1.5"/>
+          </g>
+          
+          <!-- Right metadata block -->
+          <text x="62" y="11" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.5">FILE</text>
+          <text x="62" y="18" font-family="Space Grotesk, sans-serif" font-size="6" font-weight="700" fill="#1a1408">arch_002.png</text>
+          <line x1="62" y1="22" x2="124" y2="22" stroke="#1a1408" stroke-width="0.3"/>
+          
+          <text x="62" y="29" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.5">DIMENSIONS</text>
+          <text x="62" y="35" font-family="Space Grotesk, sans-serif" font-size="6" font-weight="700" fill="#1a1408">1920×1080</text>
+          
+          <text x="62" y="42" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.5">SOURCE</text>
+          <text x="62" y="48" font-family="Space Grotesk, sans-serif" font-size="6" font-weight="700" fill="#1a1408">are.na</text>
+          
+          <!-- Footer action -->
+          <rect x="62" y="54" width="62" height="8" fill="#1a1408"/>
+          <text x="93" y="60" font-family="JetBrains Mono, monospace" font-size="5" font-weight="700" fill="#d4b418" text-anchor="middle" letter-spacing="2">› OPEN</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Halftone via square density. Structured metadata column.</div>
+    </div>
+
+    <!-- B.07 NOW PLAYING -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.07</span><strong>NOW PLAYING</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <rect x="0" y="0" width="128" height="11" fill="#1a1408"/>
+          <text x="6" y="8" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#d4b418" letter-spacing="2">PLAYING</text>
+          <g fill="#d4b418"><rect x="118" y="4" width="1.5" height="3"/><rect x="120" y="3" width="1.5" height="4"/><rect x="122" y="2" width="1.5" height="5"/></g>
+          
+          <text x="64" y="22" font-family="Space Grotesk, sans-serif" font-size="7" font-weight="700" fill="#1a1408" text-anchor="middle">Slow computing essay</text>
+          
+          <!-- Equalizer made of stacked squares -->
+          <g fill="#1a1408">
+            <!-- bar 1 -->
+            <rect x="32" y="38" width="3" height="3" class="vb-fade"/>
+            <rect x="32" y="42" width="3" height="3"/>
+            <!-- bar 2 -->
+            <rect x="40" y="34" width="3" height="3" class="vb-fade-1"/>
+            <rect x="40" y="38" width="3" height="3"/>
+            <rect x="40" y="42" width="3" height="3"/>
+            <!-- bar 3 -->
+            <rect x="48" y="30" width="3" height="3" class="vb-fade-2"/>
+            <rect x="48" y="34" width="3" height="3"/>
+            <rect x="48" y="38" width="3" height="3"/>
+            <rect x="48" y="42" width="3" height="3"/>
+            <!-- bar 4 (tallest) -->
+            <rect x="56" y="26" width="3" height="3" class="vb-fade-3"/>
+            <rect x="56" y="30" width="3" height="3"/>
+            <rect x="56" y="34" width="3" height="3"/>
+            <rect x="56" y="38" width="3" height="3"/>
+            <rect x="56" y="42" width="3" height="3"/>
+            <!-- bar 5 -->
+            <rect x="64" y="30" width="3" height="3" class="vb-fade-4"/>
+            <rect x="64" y="34" width="3" height="3"/>
+            <rect x="64" y="38" width="3" height="3"/>
+            <rect x="64" y="42" width="3" height="3"/>
+            <!-- bar 6 -->
+            <rect x="72" y="34" width="3" height="3" class="vb-fade-3"/>
+            <rect x="72" y="38" width="3" height="3"/>
+            <rect x="72" y="42" width="3" height="3"/>
+            <!-- bar 7 -->
+            <rect x="80" y="38" width="3" height="3" class="vb-fade-2"/>
+            <rect x="80" y="42" width="3" height="3"/>
+            <!-- bar 8 -->
+            <rect x="88" y="34" width="3" height="3" class="vb-fade-1"/>
+            <rect x="88" y="38" width="3" height="3"/>
+            <rect x="88" y="42" width="3" height="3"/>
+            <!-- bar 9 -->
+            <rect x="96" y="42" width="3" height="3" class="vb-fade"/>
+          </g>
+          
+          <!-- Progress -->
+          <text x="6" y="60" font-family="JetBrains Mono, monospace" font-size="5.5" font-weight="700" fill="#1a1408">06:12</text>
+          <text x="122" y="60" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#1a1408" text-anchor="end" opacity="0.6">14:32</text>
+          <rect x="22" y="56" width="84" height="2" fill="#1a1408" opacity="0.2"/>
+          <rect x="22" y="56" width="32" height="2" fill="#1a1408"/>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Stacked square equalizer + clean progress bar.</div>
+    </div>
+
+    <!-- B.08 ACTION -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.08</span><strong>ACTION</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="6" y="9" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#1a1408" letter-spacing="2">ACTION</text>
+          <text x="122" y="9" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="end" opacity="0.6">02/03</text>
+          <line x1="0" y1="13" x2="128" y2="13" stroke="#1a1408" stroke-width="0.4"/>
+          
+          <!-- Three rows -->
+          <!-- KEEP -->
+          <text x="10" y="22" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1">01</text>
+          <text x="22" y="22" font-family="Space Grotesk, sans-serif" font-size="6.5" font-weight="500" fill="#1a1408">Keep in queue</text>
+          <g fill="#1a1408" opacity="0.4">
+            <rect x="100" y="18" width="2" height="2"/><rect x="103" y="18" width="2" height="2"/><rect x="106" y="18" width="2" height="2"/>
+            <rect x="100" y="21" width="2" height="2"/><rect x="103" y="21" width="2" height="2"/><rect x="106" y="21" width="2" height="2"/>
+          </g>
+          
+          <!-- RELEASE - SELECTED -->
+          <rect x="0" y="28" width="128" height="14" fill="#1a1408"/>
+          <text x="10" y="37" font-family="JetBrains Mono, monospace" font-size="5" fill="#d4b418" letter-spacing="1">02</text>
+          <text x="22" y="37" font-family="Space Grotesk, sans-serif" font-size="6.5" font-weight="700" fill="#d4b418">Release item</text>
+          <g fill="#d4b418">
+            <rect x="100" y="33" width="2" height="2" class="vb-fade"/><rect x="106" y="33" width="2" height="2"/>
+            <rect x="103" y="36" width="2" height="2" class="vb-fade-2"/>
+            <rect x="100" y="39" width="2" height="2"/><rect x="106" y="39" width="2" height="2" class="vb-fade-1"/>
+          </g>
+          
+          <!-- ARCHIVE -->
+          <text x="10" y="51" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1">03</text>
+          <text x="22" y="51" font-family="Space Grotesk, sans-serif" font-size="6.5" font-weight="500" fill="#1a1408">Move to archive</text>
+          <g fill="#1a1408" opacity="0.4">
+            <rect x="100" y="47" width="8" height="2"/>
+            <rect x="100" y="50" width="8" height="2"/>
+          </g>
+          
+          <!-- Footer -->
+          <line x1="0" y1="56" x2="128" y2="56" stroke="#1a1408" stroke-width="0.3" opacity="0.3"/>
+          <text x="6" y="62" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.5" opacity="0.7">‹ BACK</text>
+          <text x="122" y="62" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="end" letter-spacing="1.5" opacity="0.7">CONFIRM ›</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Numbered list. Selected row inverts to dark.</div>
+    </div>
+
+    <!-- B.09 COMPLETE -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.09</span><strong>RELEASED</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Square dissolving into pixels -->
+          <g fill="#1a1408">
+            <!-- Top fragments -->
+            <rect x="42" y="14" width="2" height="2" opacity="0.3" class="vb-fade"/>
+            <rect x="48" y="12" width="2" height="2" opacity="0.5" class="vb-fade-1"/>
+            <rect x="56" y="10" width="2" height="2" opacity="0.3" class="vb-fade-2"/>
+            <rect x="68" y="11" width="2" height="2" opacity="0.5" class="vb-fade-3"/>
+            <rect x="76" y="13" width="2" height="2" opacity="0.3" class="vb-fade-4"/>
+            <rect x="82" y="15" width="2" height="2" opacity="0.5" class="vb-fade"/>
+            
+            <!-- Core (still intact) -->
+            <rect x="56" y="20" width="3" height="3"/>
+            <rect x="60" y="20" width="3" height="3"/>
+            <rect x="64" y="20" width="3" height="3"/>
+            <rect x="68" y="20" width="3" height="3"/>
+            <rect x="56" y="24" width="3" height="3"/>
+            <rect x="60" y="24" width="3" height="3"/>
+            <rect x="64" y="24" width="3" height="3"/>
+            <rect x="68" y="24" width="3" height="3"/>
+            
+            <!-- Bottom fragments -->
+            <rect x="46" y="32" width="2" height="2" opacity="0.5" class="vb-fade-2"/>
+            <rect x="74" y="32" width="2" height="2" opacity="0.5" class="vb-fade-3"/>
+            <rect x="50" y="36" width="1.5" height="1.5" opacity="0.3" class="vb-fade-4"/>
+            <rect x="78" y="36" width="1.5" height="1.5" opacity="0.3" class="vb-fade"/>
+          </g>
+          
+          <text x="64" y="50" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#1a1408" text-anchor="middle">Released</text>
+          <text x="64" y="58" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="2" opacity="0.7">11 IN QUEUE</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Pixel-block dissolves. Core remains, edges scatter.</div>
+    </div>
+
+    <!-- B.10 EMPTY -->
+    <div class="screen-card">
+      <div class="screen-label"><span>B.10</span><strong>EMPTY</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Empty grid -->
+          <g fill="#1a1408" opacity="0.18">
+            <rect x="44" y="14" width="3" height="3"/><rect x="49" y="14" width="3" height="3"/><rect x="54" y="14" width="3" height="3"/><rect x="59" y="14" width="3" height="3"/><rect x="64" y="14" width="3" height="3"/><rect x="69" y="14" width="3" height="3"/><rect x="74" y="14" width="3" height="3"/><rect x="79" y="14" width="3" height="3"/>
+            <rect x="44" y="19" width="3" height="3"/><rect x="49" y="19" width="3" height="3"/><rect x="54" y="19" width="3" height="3"/><rect x="59" y="19" width="3" height="3"/><rect x="64" y="19" width="3" height="3"/><rect x="69" y="19" width="3" height="3"/><rect x="74" y="19" width="3" height="3"/><rect x="79" y="19" width="3" height="3"/>
+            <rect x="44" y="24" width="3" height="3"/><rect x="49" y="24" width="3" height="3"/><rect x="54" y="24" width="3" height="3"/><rect x="59" y="24" width="3" height="3"/><rect x="64" y="24" width="3" height="3"/><rect x="69" y="24" width="3" height="3"/><rect x="74" y="24" width="3" height="3"/><rect x="79" y="24" width="3" height="3"/>
+            <rect x="44" y="29" width="3" height="3"/><rect x="49" y="29" width="3" height="3"/><rect x="54" y="29" width="3" height="3"/><rect x="59" y="29" width="3" height="3"/><rect x="64" y="29" width="3" height="3"/><rect x="69" y="29" width="3" height="3"/><rect x="74" y="29" width="3" height="3"/><rect x="79" y="29" width="3" height="3"/>
+          </g>
+          
+          <!-- One single highlight -->
+          <rect x="64" y="24" width="3" height="3" fill="#1a1408" class="vb-fade"/>
+          
+          <text x="64" y="46" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#1a1408" text-anchor="middle">empty queue</text>
+          <text x="64" y="55" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="2" opacity="0.7">SHARE TO ROMO TO ADD</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Grid sits empty. One faint pulse remains, gently waiting.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- VARIATION C: HALFTONE WAVE                                   -->
+<!-- ============================================================ -->
+<section class="variation">
+  <div class="variation-header">
+    <div class="variation-number">03 / C</div>
+    <div class="variation-title">
+      <h3>Halftone Wave</h3>
+      <span class="tagline">Editorial · Expressive · Energetic</span>
+    </div>
+    <div class="variation-keywords">
+      <span class="keyword">variable size</span>
+      <span class="keyword">gradient</span>
+      <span class="keyword">motion</span>
+    </div>
+  </div>
+
+  <div class="screen-grid">
+
+    <!-- C.01 BOOT -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.01</span><strong>BOOT</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Halftone gradient wave background -->
+          <g fill="#1a1408">
+            <!-- Diagonal wave: large dots top-left, small bottom-right -->
+            <circle cx="8" cy="10" r="2.5"/><circle cx="20" cy="8" r="2.2"/><circle cx="32" cy="11" r="2"/><circle cx="44" cy="9" r="1.7"/><circle cx="56" cy="12" r="1.4"/><circle cx="68" cy="10" r="1.2"/><circle cx="80" cy="13" r="1"/><circle cx="92" cy="11" r="0.8"/><circle cx="104" cy="14" r="0.6"/><circle cx="116" cy="12" r="0.4"/>
+            <circle cx="14" cy="20" r="2"/><circle cx="26" cy="22" r="1.8"/><circle cx="38" cy="20" r="1.6"/><circle cx="50" cy="22" r="1.4"/><circle cx="62" cy="20" r="1.2"/><circle cx="74" cy="22" r="1"/><circle cx="86" cy="20" r="0.8"/><circle cx="98" cy="22" r="0.6"/><circle cx="110" cy="20" r="0.4"/>
+          </g>
+          
+          <!-- ROMO type -->
+          <text x="64" y="40" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="-0.5">ROMO</text>
+          
+          <!-- Dot wave below -->
+          <g fill="#1a1408">
+            <circle cx="36" cy="52" r="1" class="vc-wave-1"/>
+            <circle cx="44" cy="52" r="1.4" class="vc-wave-2"/>
+            <circle cx="52" cy="52" r="1.8" class="vc-wave-3"/>
+            <circle cx="60" cy="52" r="2" class="vc-wave-4"/>
+            <circle cx="68" cy="52" r="2" class="vc-wave-5"/>
+            <circle cx="76" cy="52" r="1.8" class="vc-wave-6"/>
+            <circle cx="84" cy="52" r="1.4" class="vc-wave-5"/>
+            <circle cx="92" cy="52" r="1" class="vc-wave-4"/>
+          </g>
+          
+          <text x="64" y="61" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" text-anchor="middle" letter-spacing="2.5" opacity="0.7">RELIEF OF MISSING OUT</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Gradient halftone field above the type. Wave bobs below.</div>
+    </div>
+
+    <!-- C.02 HOME -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.02</span><strong>HOME</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="6" y="10" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#1a1408" letter-spacing="2">ROMO</text>
+          <g fill="#1a1408"><circle cx="116" cy="7" r="0.8"/><circle cx="119" cy="7" r="1.2"/><circle cx="122" cy="7" r="0.8"/></g>
+          <line x1="0" y1="13" x2="128" y2="13" stroke="#1a1408" stroke-width="0.3" opacity="0.4"/>
+          
+          <!-- Big number -->
+          <text x="6" y="40" font-family="Space Grotesk, sans-serif" font-size="28" font-weight="700" fill="#1a1408" letter-spacing="-1">12</text>
+          <text x="36" y="32" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.5">ITEMS</text>
+          <text x="36" y="40" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.5" opacity="0.6">WAITING</text>
+          
+          <!-- Halftone wave on right showing categories -->
+          <g fill="#1a1408">
+            <!-- Video cluster (4 items, dense) -->
+            <circle cx="74" cy="22" r="2"/>
+            <circle cx="80" cy="22" r="1.8"/>
+            <circle cx="86" cy="22" r="2"/>
+            <circle cx="92" cy="22" r="1.8"/>
+            <!-- Image cluster (6 items, varied) -->
+            <circle cx="74" cy="32" r="1.6"/>
+            <circle cx="80" cy="32" r="2"/>
+            <circle cx="86" cy="32" r="1.4"/>
+            <circle cx="92" cy="32" r="1.8"/>
+            <circle cx="98" cy="32" r="1.6"/>
+            <circle cx="104" cy="32" r="1.4"/>
+            <!-- Article cluster (2 items) -->
+            <circle cx="74" cy="42" r="1.2"/>
+            <circle cx="80" cy="42" r="1.4"/>
+          </g>
+          
+          <!-- Mini labels -->
+          <text x="113" y="24" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" letter-spacing="1">VID</text>
+          <text x="113" y="34" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" letter-spacing="1">IMG</text>
+          <text x="113" y="44" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" letter-spacing="1">ART</text>
+          
+          <!-- Footer -->
+          <line x1="0" y1="50" x2="128" y2="50" stroke="#1a1408" stroke-width="0.3" opacity="0.4"/>
+          <text x="6" y="58" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="1.5" opacity="0.8">ROTATE TO BROWSE</text>
+          <g fill="#1a1408"><circle cx="118" cy="56" r="0.8" class="vc-wave-1"/><circle cx="121" cy="56" r="1" class="vc-wave-3"/><circle cx="124" cy="56" r="0.8" class="vc-wave-5"/></g>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Big stat + halftone clusters per category. Editorial layout.</div>
+    </div>
+
+    <!-- C.03 SYNC -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.03</span><strong>SYNCING</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="64" y="11" font-family="JetBrains Mono, monospace" font-size="5.5" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="3">SYNCING IN</text>
+          
+          <!-- Wave of dots flowing left to right -->
+          <g fill="#1a1408">
+            <circle cx="10" cy="32" r="0.6" class="vc-wave-1"/>
+            <circle cx="18" cy="30" r="0.9" class="vc-wave-2"/>
+            <circle cx="26" cy="28" r="1.2" class="vc-wave-3"/>
+            <circle cx="34" cy="26" r="1.6" class="vc-wave-4"/>
+            <circle cx="42" cy="24" r="2" class="vc-wave-5"/>
+            <circle cx="50" cy="22" r="2.4" class="vc-wave-6"/>
+            <circle cx="58" cy="22" r="2.8" class="vc-wave-5"/>
+            <circle cx="66" cy="22" r="3" class="vc-wave-4"/>
+            <circle cx="74" cy="24" r="2.8" class="vc-wave-3"/>
+            <circle cx="82" cy="26" r="2.4" class="vc-wave-2"/>
+            <circle cx="90" cy="28" r="2" class="vc-wave-1"/>
+            <circle cx="98" cy="30" r="1.6" class="vc-wave-2"/>
+            <circle cx="106" cy="32" r="1.2" class="vc-wave-3"/>
+            <circle cx="114" cy="34" r="0.9" class="vc-wave-4"/>
+            <circle cx="120" cy="36" r="0.6" class="vc-wave-5"/>
+          </g>
+          
+          <!-- Big counter -->
+          <text x="64" y="56" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="-0.5">14<tspan font-family="JetBrains Mono, monospace" font-size="6" opacity="0.5"> / 24</tspan></text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Wave swells left to right. Big count anchors the bottom.</div>
+    </div>
+
+    <!-- C.04 CATEGORIES -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.04</span><strong>CATEGORIES</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Scroll-like horizontal cards -->
+          <text x="6" y="9" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#1a1408" letter-spacing="2" opacity="0.7">CATEGORY</text>
+          <text x="122" y="9" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#1a1408" text-anchor="end" letter-spacing="1.5">02 OF 04</text>
+          
+          <!-- Off-screen left card preview -->
+          <g fill="#1a1408" opacity="0.3">
+            <text x="-20" y="34" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700">VIDEO</text>
+          </g>
+          
+          <!-- Center selected card: IMAGE -->
+          <rect x="20" y="16" width="88" height="38" rx="4" fill="#1a1408"/>
+          <!-- Halftone illustration inside -->
+          <g fill="#d4b418">
+            <circle cx="34" cy="26" r="1"/><circle cx="40" cy="24" r="1.3"/><circle cx="46" cy="26" r="1"/>
+            <circle cx="34" cy="32" r="1.5" class="vc-wave-1"/><circle cx="40" cy="32" r="2" class="vc-wave-3"/><circle cx="46" cy="32" r="1.5" class="vc-wave-5"/>
+            <circle cx="36" cy="38" r="1.2"/><circle cx="44" cy="38" r="1.2"/>
+          </g>
+          <text x="56" y="28" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="700" fill="#d4b418" letter-spacing="-0.5">IMAGE</text>
+          <text x="56" y="38" font-family="JetBrains Mono, monospace" font-size="5" fill="#d4b418" letter-spacing="1.5" opacity="0.8">06 SAVED</text>
+          <text x="56" y="48" font-family="JetBrains Mono, monospace" font-size="5" fill="#d4b418" letter-spacing="1.5" opacity="0.6">TAP TO OPEN</text>
+          
+          <!-- Off-screen right preview -->
+          <g fill="#1a1408" opacity="0.3">
+            <text x="118" y="34" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="700">A</text>
+          </g>
+          
+          <!-- Pagination wave -->
+          <g fill="#1a1408">
+            <circle cx="56" cy="60" r="1"/>
+            <circle cx="62" cy="60" r="1.4"/>
+            <circle cx="68" cy="60" r="1"/>
+            <circle cx="74" cy="60" r="1"/>
+          </g>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Carousel-style. Selected card is large and dark with halftone.</div>
+    </div>
+
+    <!-- C.05 LIST -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.05</span><strong>LIST</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Header -->
+          <text x="6" y="10" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#1a1408" letter-spacing="2">VIDEOS</text>
+          <text x="122" y="10" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#1a1408" text-anchor="end">01<tspan font-family="JetBrains Mono, monospace" font-size="5" opacity="0.5">/04</tspan></text>
+          <line x1="0" y1="14" x2="128" y2="14" stroke="#1a1408" stroke-width="0.3" opacity="0.4"/>
+          
+          <!-- Item 1 SELECTED with circular halftone thumb -->
+          <circle cx="14" cy="24" r="6" fill="#1a1408"/>
+          <g fill="#d4b418">
+            <circle cx="11" cy="22" r="0.6"/><circle cx="14" cy="21" r="0.8"/><circle cx="17" cy="22" r="0.6"/>
+            <circle cx="11" cy="25" r="0.8" class="vc-wave-1"/><circle cx="14" cy="25" r="1" class="vc-wave-3"/><circle cx="17" cy="25" r="0.8" class="vc-wave-5"/>
+            <circle cx="13" cy="27" r="0.6"/><circle cx="15" cy="27" r="0.6"/>
+          </g>
+          <text x="24" y="22" font-family="Space Grotesk, sans-serif" font-size="6.5" font-weight="700" fill="#1a1408">Hidden cost of saving</text>
+          <text x="24" y="28" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" letter-spacing="1.2" opacity="0.7">14:32 · MINIMAL FUTURES</text>
+          
+          <!-- Item 2 -->
+          <circle cx="14" cy="40" r="5" fill="none" stroke="#1a1408" stroke-width="0.5"/>
+          <g fill="#1a1408" opacity="0.6">
+            <circle cx="12" cy="40" r="0.5"/><circle cx="14" cy="38.5" r="0.7"/><circle cx="16" cy="40" r="0.5"/>
+            <circle cx="13" cy="42" r="0.5"/><circle cx="15" cy="42" r="0.5"/>
+          </g>
+          <text x="24" y="38" font-family="Space Grotesk, sans-serif" font-size="6" fill="#1a1408" opacity="0.8">Why bookmarks become</text>
+          <text x="24" y="44" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" letter-spacing="1.2" opacity="0.5">8:11 · SLOW DESIGN</text>
+          
+          <!-- Item 3 -->
+          <circle cx="14" cy="55" r="5" fill="none" stroke="#1a1408" stroke-width="0.5"/>
+          <g fill="#1a1408" opacity="0.6">
+            <circle cx="12" cy="54" r="0.6"/><circle cx="16" cy="54" r="0.6"/>
+            <circle cx="14" cy="56" r="0.7"/>
+          </g>
+          <text x="24" y="53" font-family="Space Grotesk, sans-serif" font-size="6" fill="#1a1408" opacity="0.8">Digital hoarding</text>
+          <text x="24" y="59" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" letter-spacing="1.2" opacity="0.5">12:05 · ESSAY</text>
+          
+          <!-- Right scroll dots -->
+          <g fill="#1a1408">
+            <circle cx="124" cy="22" r="1.4"/>
+            <circle cx="124" cy="28" r="0.7" opacity="0.5"/>
+            <circle cx="124" cy="34" r="0.7" opacity="0.5"/>
+            <circle cx="124" cy="40" r="0.7" opacity="0.5"/>
+          </g>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Round halftone thumbs. Selected one is filled, others outlined.</div>
+    </div>
+
+    <!-- C.06 PREVIEW -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.06</span><strong>PREVIEW</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Big circular halftone thumbnail -->
+          <circle cx="28" cy="32" r="22" fill="#1a1408"/>
+          <g fill="#d4b418">
+            <!-- Top arc lighter (small dots) -->
+            <circle cx="20" cy="18" r="0.6"/><circle cx="28" cy="15" r="0.8"/><circle cx="36" cy="18" r="0.6"/>
+            <!-- Mid (medium) -->
+            <circle cx="14" cy="25" r="1"/><circle cx="22" cy="23" r="1.3"/><circle cx="28" cy="22" r="1.5"/><circle cx="34" cy="23" r="1.3"/><circle cx="42" cy="25" r="1"/>
+            <!-- Center (largest, breathing) -->
+            <circle cx="18" cy="32" r="1.4" class="vc-wave-1"/><circle cx="24" cy="32" r="2" class="vc-wave-2"/><circle cx="32" cy="32" r="2.4" class="vc-wave-3"/><circle cx="38" cy="32" r="2" class="vc-wave-4"/>
+            <!-- Bottom -->
+            <circle cx="14" cy="39" r="1"/><circle cx="22" cy="41" r="1.3"/><circle cx="28" cy="42" r="1.5"/><circle cx="34" cy="41" r="1.3"/><circle cx="42" cy="39" r="1"/>
+            <!-- Bottom arc -->
+            <circle cx="20" cy="46" r="0.6"/><circle cx="28" cy="49" r="0.8"/><circle cx="36" cy="46" r="0.6"/>
+          </g>
+          
+          <!-- Right side -->
+          <text x="58" y="14" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" letter-spacing="1.5" opacity="0.7">VIDEO · 14:32</text>
+          <text x="58" y="24" font-family="Space Grotesk, sans-serif" font-size="7" font-weight="700" fill="#1a1408">Hidden cost</text>
+          <text x="58" y="32" font-family="Space Grotesk, sans-serif" font-size="7" font-weight="700" fill="#1a1408">of saving</text>
+          <text x="58" y="40" font-family="Space Grotesk, sans-serif" font-size="7" font-weight="700" fill="#1a1408">everything</text>
+          <line x1="58" y1="44" x2="120" y2="44" stroke="#1a1408" stroke-width="0.3"/>
+          <text x="58" y="51" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" letter-spacing="1" opacity="0.7">MINIMAL FUTURES</text>
+          
+          <!-- Play button hint -->
+          <g fill="#1a1408">
+            <circle cx="64" cy="59" r="1.2" class="vc-wave-1"/>
+            <circle cx="68" cy="59" r="1.2" class="vc-wave-3"/>
+            <text x="76" y="61" font-family="JetBrains Mono, monospace" font-size="5" font-weight="700" letter-spacing="1.5">CLICK PLAY</text>
+          </g>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Round halftone with breathing center. Editorial type stack.</div>
+    </div>
+
+    <!-- C.07 NOW PLAYING -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.07</span><strong>NOW PLAYING</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="6" y="9" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" letter-spacing="2" opacity="0.7">NOW PLAYING</text>
+          <text x="64" y="20" font-family="Space Grotesk, sans-serif" font-size="8" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="-0.3">Slow computing</text>
+          
+          <!-- Sound wave: variable circles centered -->
+          <g fill="#1a1408">
+            <circle cx="20" cy="36" r="1" class="vc-wave-1"/>
+            <circle cx="28" cy="36" r="1.5" class="vc-wave-2"/>
+            <circle cx="36" cy="36" r="2" class="vc-wave-3"/>
+            <circle cx="44" cy="36" r="2.6" class="vc-wave-4"/>
+            <circle cx="52" cy="36" r="3" class="vc-wave-5"/>
+            <circle cx="60" cy="36" r="3.5" class="vc-wave-6"/>
+            <circle cx="68" cy="36" r="3.5" class="vc-wave-5"/>
+            <circle cx="76" cy="36" r="3" class="vc-wave-4"/>
+            <circle cx="84" cy="36" r="2.6" class="vc-wave-3"/>
+            <circle cx="92" cy="36" r="2" class="vc-wave-2"/>
+            <circle cx="100" cy="36" r="1.5" class="vc-wave-1"/>
+            <circle cx="108" cy="36" r="1" class="vc-wave-2"/>
+          </g>
+          
+          <!-- Time + progress -->
+          <text x="6" y="60" font-family="Space Grotesk, sans-serif" font-size="7" font-weight="700" fill="#1a1408">06:12</text>
+          <g fill="#1a1408">
+            <circle cx="32" cy="58" r="1"/>
+            <circle cx="38" cy="58" r="1"/>
+            <circle cx="44" cy="58" r="1"/>
+            <circle cx="50" cy="58" r="1.2"/>
+            <circle cx="56" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="62" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="68" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="74" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="80" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="86" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="92" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="98" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="104" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="110" cy="58" r="0.5" opacity="0.4"/>
+            <circle cx="116" cy="58" r="0.5" opacity="0.4"/>
+          </g>
+          <text x="122" y="60" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="end" opacity="0.6">14:32</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Symmetrical halftone wave with peak at center.</div>
+    </div>
+
+    <!-- C.08 ACTION -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.08</span><strong>ACTION</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <text x="64" y="11" font-family="Space Grotesk, sans-serif" font-size="9" font-weight="700" fill="#1a1408" text-anchor="middle">Choose</text>
+          
+          <!-- Three big options as wave rows -->
+          <!-- KEEP - sparse small dots -->
+          <text x="6" y="24" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#1a1408" letter-spacing="1.5" opacity="0.6">KEEP</text>
+          <g fill="#1a1408" opacity="0.5">
+            <circle cx="44" cy="22" r="0.7"/><circle cx="52" cy="22" r="0.7"/><circle cx="60" cy="22" r="0.7"/><circle cx="68" cy="22" r="0.7"/><circle cx="76" cy="22" r="0.7"/><circle cx="84" cy="22" r="0.7"/><circle cx="92" cy="22" r="0.7"/><circle cx="100" cy="22" r="0.7"/><circle cx="108" cy="22" r="0.7"/><circle cx="116" cy="22" r="0.7"/>
+          </g>
+          
+          <!-- RELEASE selected - heavy wave -->
+          <rect x="0" y="29" width="128" height="14" fill="#1a1408"/>
+          <text x="6" y="40" font-family="JetBrains Mono, monospace" font-size="6" font-weight="700" fill="#d4b418" letter-spacing="1.5">RELEASE</text>
+          <g fill="#d4b418">
+            <circle cx="60" cy="36" r="0.8" class="vc-wave-1"/>
+            <circle cx="66" cy="36" r="1.2" class="vc-wave-2"/>
+            <circle cx="72" cy="36" r="1.6" class="vc-wave-3"/>
+            <circle cx="78" cy="36" r="2" class="vc-wave-4"/>
+            <circle cx="84" cy="36" r="2.4" class="vc-wave-5"/>
+            <circle cx="90" cy="36" r="2" class="vc-wave-4"/>
+            <circle cx="96" cy="36" r="1.6" class="vc-wave-3"/>
+            <circle cx="102" cy="36" r="1.2" class="vc-wave-2"/>
+            <circle cx="108" cy="36" r="0.8" class="vc-wave-1"/>
+          </g>
+          
+          <!-- ARCHIVE -->
+          <text x="6" y="54" font-family="JetBrains Mono, monospace" font-size="5.5" fill="#1a1408" letter-spacing="1.5" opacity="0.6">ARCHIVE</text>
+          <g fill="#1a1408" opacity="0.5">
+            <circle cx="56" cy="52" r="0.7"/><circle cx="62" cy="52" r="1"/><circle cx="68" cy="52" r="1.2"/><circle cx="74" cy="52" r="1"/><circle cx="80" cy="52" r="0.7"/>
+          </g>
+          
+          <text x="64" y="62" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" text-anchor="middle" letter-spacing="2" opacity="0.6">ROTATE TO CHOOSE</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Selected option becomes a heavy wave. Others stay quiet.</div>
+    </div>
+
+    <!-- C.09 COMPLETE -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.09</span><strong>RELEASED</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Particles dispersing outward -->
+          <g fill="#1a1408">
+            <circle cx="20" cy="14" r="0.6" class="vc-wave-1"/>
+            <circle cx="36" cy="10" r="0.8" class="vc-wave-2"/>
+            <circle cx="52" cy="14" r="0.6" class="vc-wave-3"/>
+            <circle cx="76" cy="14" r="0.6" class="vc-wave-4"/>
+            <circle cx="92" cy="10" r="0.8" class="vc-wave-5"/>
+            <circle cx="108" cy="14" r="0.6" class="vc-wave-6"/>
+            
+            <circle cx="14" cy="22" r="0.8" class="vc-wave-2"/>
+            <circle cx="30" cy="22" r="1" class="vc-wave-4"/>
+            <circle cx="98" cy="22" r="1" class="vc-wave-2"/>
+            <circle cx="114" cy="22" r="0.8" class="vc-wave-4"/>
+            
+            <!-- Center small remnant -->
+            <circle cx="64" cy="28" r="2" class="vc-wave-3"/>
+            
+            <circle cx="14" cy="32" r="0.6" class="vc-wave-3"/>
+            <circle cx="114" cy="32" r="0.6" class="vc-wave-1"/>
+          </g>
+          
+          <text x="64" y="48" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="-0.3">Released ›</text>
+          <text x="64" y="58" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="2" opacity="0.7">11 ITEMS · QUEUE LIGHTER</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">Particles drift outward. Item dissolved into the field.</div>
+    </div>
+
+    <!-- C.10 EMPTY -->
+    <div class="screen-card">
+      <div class="screen-label"><span>C.10</span><strong>EMPTY</strong></div>
+      <div class="lcd-frame"><div class="lcd-screen">
+        <svg viewBox="0 0 128 64" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <!-- Single horizontal wave on horizon -->
+          <g fill="#1a1408">
+            <circle cx="20" cy="22" r="0.5" class="vc-wave-1"/>
+            <circle cx="32" cy="22" r="0.7" class="vc-wave-2"/>
+            <circle cx="44" cy="22" r="0.9" class="vc-wave-3"/>
+            <circle cx="56" cy="22" r="1.1" class="vc-wave-4"/>
+            <circle cx="64" cy="22" r="1.3" class="vc-wave-5"/>
+            <circle cx="72" cy="22" r="1.1" class="vc-wave-4"/>
+            <circle cx="84" cy="22" r="0.9" class="vc-wave-3"/>
+            <circle cx="96" cy="22" r="0.7" class="vc-wave-2"/>
+            <circle cx="108" cy="22" r="0.5" class="vc-wave-1"/>
+          </g>
+          
+          <text x="64" y="42" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="700" fill="#1a1408" text-anchor="middle" letter-spacing="-0.3">All clear.</text>
+          <text x="64" y="52" font-family="JetBrains Mono, monospace" font-size="5" fill="#1a1408" text-anchor="middle" letter-spacing="2" opacity="0.7">NOTHING TO CATCH UP ON</text>
+          <text x="64" y="60" font-family="JetBrains Mono, monospace" font-size="4.5" fill="#1a1408" text-anchor="middle" letter-spacing="2.5" opacity="0.5">— ROMO —</text>
+        </svg>
+      </div></div>
+      <div class="screen-caption">A horizon line of wave. Spacious. Quiet. Resolved.</div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer-note">
+  <div>
+    <strong>System rules</strong>
+    All three variations share: 128×64 grid · single foreground color · Space Grotesk for display, JetBrains Mono for system text · ROMO wordmark anchors boot and headers.
+  </div>
+  <div>
+    <strong>Visual signatures</strong>
+    A · circular dots, organic clusters, breathing<br>
+    B · square dots, fixed grid, density gradients<br>
+    C · variable-radius dots, halftone waves, motion
+  </div>
+  <div>
+    <strong>Interaction model</strong>
+    Rotary encoder throughout: ROTATE = browse · CLICK = select · LONG PRESS = back. Selected state always inverts (dark fill, light text) so it reads instantly on a yellow LCD.
+  </div>
+</footer>
+
+</body>
+</html>
